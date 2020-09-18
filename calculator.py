@@ -1,21 +1,21 @@
-def calc(N, OP, M):
+def calc(n, op, m):
     possible_operations = ['+', '-', '*', '/', '^', '**']
-    if OP in possible_operations:
-        if OP == '+':
-            result = N + M
-        elif OP == '-':
-            result = N - M
-        elif OP == '*':
-            result = N * M
-        elif OP == '/':
-            result = N / M
-        elif (OP == '^') or (OP == '**'):
-            result = N ** M
-            OP = '^'
+    if op in possible_operations:
+        if op == '+':
+            result = n + m
+        elif op == '-':
+            result = n - m
+        elif op == '*':
+            result = n * m
+        elif op == '/':
+            result = n / m
+        elif (op == '^') or (op == '**'):
+            result = n ** m
+            op = '^'
 
         print(result)
     else:
-        print(f'Такой операции как {OP} я не знаю')
+        print(f'Такой операции как {op} я не знаю')
 
 
 print("введите число, затем операцию, которую вы хотите применить, "
@@ -24,5 +24,5 @@ x, op, y = input(), input(), input()
 
 try:
     calc(float(x), op, float(y))
-except:
+except ValueError:
     raise Exception('Возможно, вы ввели не числа')
