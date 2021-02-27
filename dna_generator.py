@@ -26,4 +26,3 @@ for _ in range(4**n):
 
 print("\nlist of all sequences:\n")
 print(list(gen_list))
-
