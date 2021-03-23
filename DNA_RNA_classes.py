@@ -14,12 +14,12 @@ class Dna:
     def reverse_complement(self):
         complement_dna = {'A': 'T', 'G': 'C', 'C': 'G', 'T': 'A', 'N': 'N',
                           'a': 't', 'g': 'c', 'c': 'g', 't': 'a', 'n': 'n'}
-        return ''.join([complement_dna[i] for i in self.seq][::-1])
+        return Dna(''.join([complement_dna[i] for i in self.seq][::-1]))
 
     def upper(self):
         upper_dna = {'a': 'A', 't': 'T', 'c': 'C', 'g': 'G', 'n': 'N',
-                     'A': 'A', 'C': 'C', 'T': 'T', 'G': 'G', 'N': 'N'}
-        return ''.join([upper_dna[i] for i in self.seq])
+                     'A': 'A', 'T': 'T', 'C': 'C', 'G': 'G', 'N': 'N'}
+        return Dna(''.join([upper_dna[i] for i in self.seq]))
 
     def transcribe(self):
         transcribed = ''
@@ -30,7 +30,7 @@ class Dna:
                 transcribed += 'u'
             else:
                 transcribed += 'U'
-        return transcribed
+        return Rna(transcribed)
 
 
 class Rna:
@@ -45,8 +45,8 @@ class Rna:
 
     def upper(self):
         upper_rna = {'a': 'A', 'u': 'U', 'c': 'C', 'g': 'G', 'n': 'N',
-                     'A': 'A', 'C': 'C', 'U': 'U', 'G': 'G', 'N': 'N'}
-        return ''.join([upper_rna[i] for i in self.seq])
+                     'A': 'A', 'U': 'U', 'C': 'C', 'G': 'G', 'N': 'N'}
+        return Rna(''.join([upper_rna[i] for i in self.seq]))
 
     def gc_content(self):
         return len([i for i in self.seq if i in "cgCG"]) * 100 / len(self.seq)
@@ -54,12 +54,12 @@ class Rna:
     def reverse_complement(self):
         complement_rna = {'A': 'U', 'G': 'C', 'C': 'G', 'U': 'A', 'N': 'N',
                           'a': 'u', 'g': 'c', 'c': 'g', 'u': 'a', 'n': 'n'}
-        return ''.join([complement_rna[i] for i in self.seq][::-1])
+        return Rna(''.join([complement_rna[i] for i in self.seq][::-1]))
 
 
 '''
 функция определяет, объект какого класса будет создан,
-на основании его последовательности 
+на основании его последовательности
 (если отсутствует Урацил, объект будет принадлежать классу ДНК)
 '''
 
@@ -96,20 +96,20 @@ if __name__ == '__main__':
     print("Создайте объект ДНК или РНК:")
     seq1 = create_seq(input())
     print("сама последовательность: ", seq1.seq)
-    print("в верхнем регистре: ", seq1.upper())
+    print("в верхнем регистре: ", seq1.upper().seq)
     print("CG состав последовательности: ", seq1.gc_content())
     print("Обратно комплиментарная последовательность: ",
-          seq1.reverse_complement())
+          seq1.reverse_complement().seq)
     if isinstance(seq1, Dna):
-        print("транскрипт: ", seq1.transcribe())
+        print("транскрипт: ", seq1.transcribe().seq)
 
     print("Создайте объект ДНК или РНК:")
     seq2 = create_seq(input())
     print("CG состав последовательности: ", seq2.gc_content())
     print("Обратно комплиментарная последовательность: ",
-          seq2.reverse_complement())
+          seq2.reverse_complement().seq)
     if isinstance(seq2, Dna):
-        print("транскрипт: ", seq1.transcribe())
+        print("транскрипт: ", seq2.transcribe().seq)
     if seq1 and seq2:
         print("\nравны ли введенные ранее последовательности? - ",
               "ДА" if seq1 == seq2 else "НЕТ")
