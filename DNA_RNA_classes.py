@@ -13,18 +13,18 @@ class Dna:
 
     def reverse_complement(self):
         complement_dna = {'A': 'T', 'G': 'C', 'C': 'G', 'T': 'A', 'N': 'N',
-                          'a': 't', 'g': 'c', 'c': 'g', 't': 'a'}
+                          'a': 't', 'g': 'c', 'c': 'g', 't': 'a', 'n': 'n'}
         return ''.join([complement_dna[i] for i in self.seq][::-1])
 
     def upper(self):
-        upper_dna = {'a': 'A', 't': 'T', 'c': 'C', 'g': 'G', 'N': 'N',
-                     'A': 'A', 'C': 'C', 'T': 'T', 'G': 'G'}
+        upper_dna = {'a': 'A', 't': 'T', 'c': 'C', 'g': 'G', 'n': 'N',
+                     'A': 'A', 'C': 'C', 'T': 'T', 'G': 'G', 'N': 'N'}
         return ''.join([upper_dna[i] for i in self.seq])
 
     def transcribe(self):
         transcribed = ''
         for i in self.seq:
-            if i in 'acgACG':
+            if i in 'acgnACGN':
                 transcribed += i
             elif i == 't':
                 transcribed += 'u'
@@ -44,8 +44,8 @@ class Rna:
         return iter(self.seq)
 
     def upper(self):
-        upper_rna = {'a': 'A', 'u': 'U', 'c': 'C', 'g': 'G', 'N': 'N',
-                     'A': 'A', 'C': 'C', 'U': 'U', 'G': 'G'}
+        upper_rna = {'a': 'A', 'u': 'U', 'c': 'C', 'g': 'G', 'n': 'N',
+                     'A': 'A', 'C': 'C', 'U': 'U', 'G': 'G', 'N': 'N'}
         return ''.join([upper_rna[i] for i in self.seq])
 
     def gc_content(self):
@@ -53,19 +53,20 @@ class Rna:
 
     def reverse_complement(self):
         complement_rna = {'A': 'U', 'G': 'C', 'C': 'G', 'U': 'A', 'N': 'N',
-                          'a': 'u', 'g': 'c', 'c': 'g', 'u': 'a'}
+                          'a': 'u', 'g': 'c', 'c': 'g', 'u': 'a', 'n': 'n'}
         return ''.join([complement_rna[i] for i in self.seq][::-1])
 
 
 '''
-функция определяет, объект какого класса будет создан, на основании его последовательности 
+функция определяет, объект какого класса будет создан,
+на основании его последовательности 
 (если отсутствует Урацил, объект будет принадлежать классу ДНК)
 '''
 
 
 def create_seq(string):
-    dnastr = 'ATGCNatgc'
-    rnastr = 'AUGCNaugc'
+    dnastr = 'ATGCNatgcn'
+    rnastr = 'AUGCNaugcn'
     d = 0
     r = 0
     if len(string) == 0:
@@ -97,15 +98,18 @@ if __name__ == '__main__':
     print("сама последовательность: ", seq1.seq)
     print("в верхнем регистре: ", seq1.upper())
     print("CG состав последовательности: ", seq1.gc_content())
-    print("Обратно комплиментарная последовательность: ", seq1.reverse_complement())
+    print("Обратно комплиментарная последовательность: ",
+          seq1.reverse_complement())
     if isinstance(seq1, Dna):
         print("транскрипт: ", seq1.transcribe())
 
     print("Создайте объект ДНК или РНК:")
     seq2 = create_seq(input())
     print("CG состав последовательности: ", seq2.gc_content())
-    print("Обратно комплиментарная последовательность: ", seq2.reverse_complement())
+    print("Обратно комплиментарная последовательность: ",
+          seq2.reverse_complement())
     if isinstance(seq2, Dna):
         print("транскрипт: ", seq1.transcribe())
     if seq1 and seq2:
-        print("\nравны ли введенные ранее последовательности? - ", "ДА" if seq1 == seq2 else "НЕТ")
+        print("\nравны ли введенные ранее последовательности? - ",
+              "ДА" if seq1 == seq2 else "НЕТ")
